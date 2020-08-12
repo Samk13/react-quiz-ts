@@ -1,30 +1,16 @@
 import {
-  Box,
-  FormControlLabel,
+  Box, Button, FormControlLabel,
   FormGroup,
-  Paper,
-  Switch
+
+
+  Paper, Switch
 } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import React, { Fragment, useState } from "react";
-import { Difficulty, fetchQuizQuestions, QuestionState } from "./API";
+import { fetchQuizQuestions } from "./API";
 import NavBar from "./components/NavBar";
 import QuestionCard from "./components/QuestionCard";
-
-
-
-type Props = React.InputHTMLAttributes<HTMLInputElement> & {
-  handleChange: (event: string) => string;
-};
-
-
-export type AnswerArray = {
-  question: string;
-  answer: string;
-  correct: boolean;
-  correctAnswer: string;
-};
-
+import { AnswerArray, Difficulty, QuestionState } from "./Types";
 
 const TOTAL_QUESTIONS = 10;
 
@@ -56,23 +42,24 @@ const App: React.FC = () => {
 
   // Check answers
   const checkAnswers = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if(!gameOver) {
+    if (!gameOver) {
       // user answer
-      const answer = e.currentTarget.value
+      const answer = e.currentTarget.value;
       // validate answer
-      const isAnswerCorrect = questions[questionNumber].correct_answer === answer;
+      const isAnswerCorrect =
+        questions[questionNumber].correct_answer === answer;
       // add to score if correct
       if (isAnswerCorrect) {
-        setScore((previousScore)=> previousScore + 1 )
+        setScore((previousScore) => previousScore + 1);
       }
       // store answers
       const AnswerArray = {
-      question: questions[questionNumber].question,
-      answer,
-      correct: isAnswerCorrect,
-      correctAnswer: questions[questionNumber].correct_answer
+        question: questions[questionNumber].question,
+        answer,
+        correct: isAnswerCorrect,
+        correctAnswer: questions[questionNumber].correct_answer,
       };
-      setUserAnswers((previousAnswers) =>[...previousAnswers, AnswerArray])
+      setUserAnswers((previousAnswers) => [...previousAnswers, AnswerArray]);
     }
   };
   // End Check answers
@@ -80,12 +67,11 @@ const App: React.FC = () => {
   // Next Question
   const nextQuestion = () => {
     const nextQuestion = questionNumber + 1;
-    if ( nextQuestion === TOTAL_QUESTIONS) {
+    if (nextQuestion === TOTAL_QUESTIONS) {
       setGameOver(true);
     } else {
-      setQuestionNumber(nextQuestion)
+      setQuestionNumber(nextQuestion);
     }
-
   };
   // End Next Question
 
@@ -131,23 +117,36 @@ const App: React.FC = () => {
           >
             {!gameOver && <Paper>Score: {score}</Paper>}
             {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-              <button onClick={fetchApi}>Start</button>
+              <Button fullWidth onClick={fetchApi}>
+                Start
+              </Button>
             ) : null}
             {loading && <p>Loading questions ...</p>}
-            {!loading && !gameOver && questions.length > 0 && <QuestionCard
-            question={questions[questionNumber].question}
-            answers={questions[questionNumber].answers}
-            callback={checkAnswers}
-            userAnswer={userAnswers ? userAnswers[questionNumber] : undefined }
-            questionNr={questionNumber + 1}
-            totalQuestions={TOTAL_QUESTIONS}
-            />}
+            {!loading && !gameOver && questions.length > 0 && (
+              <QuestionCard
+                question={questions[questionNumber].question}
+                answers={questions[questionNumber].answers}
+                callback={checkAnswers}
+                userAnswer={
+                  userAnswers ? userAnswers[questionNumber] : undefined
+                }
+                questionNr={questionNumber + 1}
+                totalQuestions={TOTAL_QUESTIONS}
+              />
+            )}
             {!gameOver &&
-             !loading &&
-             userAnswers.length === questionNumber + 1 &&
-              questionNumber !== TOTAL_QUESTIONS - 1 &&
-              <button onClick={nextQuestion}>Next question</button>
-            }
+              !loading &&
+              userAnswers.length === questionNumber + 1 &&
+              questionNumber !== TOTAL_QUESTIONS - 1 && (
+                <Button
+                  fullWidth
+                  size="large"
+                  color="primary"
+                  onClick={nextQuestion}
+                >
+                  Next question
+                </Button>
+              )}
           </Box>
         </Paper>
       </ThemeProvider>

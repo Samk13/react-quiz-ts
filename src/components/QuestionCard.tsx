@@ -1,13 +1,6 @@
+import { Button } from "@material-ui/core";
 import React from "react";
-import { AnswerArray } from '../App';
-type Props = {
-  question: string;
-  answers: string[];
-  callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  userAnswer: AnswerArray | undefined;
-  questionNr: number;
-  totalQuestions: number;
-};
+import { Props } from '../Types';
 
 const QuestionCard: React.FC<Props> = ({
   question,
@@ -25,9 +18,7 @@ const QuestionCard: React.FC<Props> = ({
     <div>
         {answers.map(answer => (
             <div key={answer}>
-                {/* <span dangerouslySetInnerHTML={{ __html: answer }} /> */}
-                {/* <br></br> */}
-                <button disabled={!!userAnswer} value={answer} onClick={callback}>{answer}</button>
+                <Button  fullWidth disabled={!!userAnswer} value={answer} onClick={callback}>{answer}</Button>
             </div>
         ))}
     </div>
