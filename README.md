@@ -1,4 +1,5 @@
 <h1>React TypeScript Material UI  App</h1>
+<img src="https://miro.medium.com/max/992/1*jc9rLoebmAvNG0okEHkOPg.png" alt="React + TypeScript logo" />
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
