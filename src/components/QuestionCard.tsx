@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import React from "react";
 import { Props } from '../Types';
 
@@ -14,11 +14,18 @@ const QuestionCard: React.FC<Props> = ({
     <p>
         question : { questionNr} / { totalQuestions}
     </p>
-    <p dangerouslySetInnerHTML={{ __html: question }}/>
+    {/* <p dangerouslySetInnerHTML={{ __html: question }}/> */}
+    <Typography variant="h3">
+        {question}
+    </Typography>
     <div>
         {answers.map(answer => (
             <div key={answer}>
-                <Button  fullWidth disabled={!!userAnswer} value={answer} onClick={callback}>{answer}</Button>
+                <Button fullWidth disabled={!!userAnswer} value={answer} onClick={callback}>
+                    <Typography variant="h4">
+                        {answer}
+                    </Typography>
+                </Button>
             </div>
         ))}
     </div>

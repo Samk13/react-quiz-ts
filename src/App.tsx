@@ -1,9 +1,10 @@
 import {
   Box, Button, FormControlLabel,
+
   FormGroup,
 
 
-  Paper, Switch
+  Paper, Switch, Typography
 } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import React, { Fragment, useState } from "react";
@@ -115,10 +116,16 @@ const App: React.FC = () => {
             p={10}
             bgcolor="background.paper"
           >
-            {!gameOver && <Paper>Score: {score}</Paper>}
+            {!gameOver && <Paper>
+                <Typography variant="h2">
+                  Score: {score}
+                </Typography>
+              </Paper>}
             {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
               <Button fullWidth onClick={fetchApi}>
-                Start
+                <Typography variant="h2">
+                  Start
+                </Typography>
               </Button>
             ) : null}
             {loading && <p>Loading questions ...</p>}
@@ -144,7 +151,9 @@ const App: React.FC = () => {
                   color="primary"
                   onClick={nextQuestion}
                 >
-                  Next question
+                  <Typography variant="h3">
+                    Next question
+                  </Typography>
                 </Button>
               )}
           </Box>

@@ -42,7 +42,7 @@ export default function NavBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Photos
+          React / Typescript / MaterialUI / App
           </Typography>
           {/* <FormGroup>
             <FormControlLabel
