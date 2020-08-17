@@ -1,13 +1,6 @@
+import { Button, Typography } from "@material-ui/core";
 import React from "react";
-import { AnswerArray } from '../App';
-type Props = {
-  question: string;
-  answers: string[];
-  callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  userAnswer: AnswerArray | undefined;
-  questionNr: number;
-  totalQuestions: number;
-};
+import { Props } from '../Types';
 
 const QuestionCard: React.FC<Props> = ({
   question,
@@ -21,13 +14,18 @@ const QuestionCard: React.FC<Props> = ({
     <p>
         question : { questionNr} / { totalQuestions}
     </p>
-    <p dangerouslySetInnerHTML={{ __html: question }}/>
+    {/* <p dangerouslySetInnerHTML={{ __html: question }}/> */}
+    <Typography variant="h3">
+        {question}
+    </Typography>
     <div>
         {answers.map(answer => (
             <div key={answer}>
-                {/* <span dangerouslySetInnerHTML={{ __html: answer }} /> */}
-                {/* <br></br> */}
-                <button disabled={!!userAnswer} value={answer} onClick={callback}>{answer}</button>
+                <Button fullWidth disabled={!!userAnswer} value={answer} onClick={callback}>
+                    <Typography variant="h4">
+                        {answer}
+                    </Typography>
+                </Button>
             </div>
         ))}
     </div>
