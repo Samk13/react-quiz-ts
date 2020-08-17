@@ -3,6 +3,7 @@ node_js:
   - "stable"
 script:
   - yarn run build
+  - yarn run deploy
 deploy:
   provider: pages
   skip_cleanup: true
